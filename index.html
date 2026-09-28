@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Video Translator - Dịch video tiếng Anh sang tiếng Việt với phụ đề">
+  <title>Video Translator - Anh → Việt</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-icon">🎬</div>
+    <div><div class="brand-title">VIDEO TRANSLATOR</div><div class="brand-subtitle">English → Vietnamese</div></div>
+  </div>
+  <div class="header-actions">
+    <button class="header-btn" id="loadProjectBtn">📂 Mở dự án</button>
+    <button class="header-btn primary" id="saveProjectBtn">💾 Lưu dự án</button>
+  </div>
+</header>
+
+<main class="container">
+  <section class="toolbar">
+    <div class="toolbar-left">
+      <label class="upload-btn">🎬 Chọn video<input type="file" id="videoInput" accept="video/*" hidden></label>
+      <label class="upload-btn secondary">📝 Import SRT/VTT<input type="file" id="subtitleInput" accept=".srt,.vtt,text/vtt" hidden></label>
+    </div>
+    <div class="toolbar-right">
+      <button class="tool-btn" id="translateAllBtn">🇻🇳 Dịch toàn bộ</button>
+      <button class="tool-btn green" id="copyAllBtn">📋 Copy</button>
+      <button class="tool-btn cyan" id="downloadSrtBtn">⬇ SRT</button>
+      <button class="tool-btn cyan" id="downloadVttBtn">⬇ VTT</button>
+    </div>
+  </section>
+
+  <div class="status-bar">
+    <div id="statusDot" class="status-dot"></div>
+    <span id="statusText">Sẵn sàng. Hãy chọn video hoặc import phụ đề.</span>
+    <div class="status-progress"><div id="progressBar"></div></div>
+  </div>
+
+  <section class="workspace">
+    <div class="video-panel">
+      <div class="panel-header">
+        <div><span class="panel-title">🎥 Video</span></div>
+        <div class="video-name" id="videoName">Chưa chọn video</div>
+      </div>
+
+      <div class="video-wrapper" id="videoWrapper">
+        <video id="videoPlayer" controls playsinline></video>
+        <div id="videoSubtitle" class="video-subtitle"></div>
+        <div id="videoPlaceholder" class="video-placeholder">
+          <div class="placeholder-icon">🎬</div>
+          <h2>Chưa có video</h2>
+          <p>Chọn một video để bắt đầu</p>
+          <label class="big-upload">Chọn video<input type="file" id="videoInput2" accept="video/*" hidden></label>
+        </div>
+      </div>
+
+      <div class="video-info">
+        <div><span>Thời gian</span><strong id="currentTime">00:00:00</strong></div>
+        <div><span>Thời lượng</span><strong id="duration">00:00:00</strong></div>
+        <div><span>Phụ đề</span><strong id="subtitleCount">0 dòng</strong></div>
+      </div>
+
+      <div class="style-panel">
+        <div class="style-title">🎨 Kiểu hiển thị phụ đề</div>
+        <div class="style-grid">
+          <label>Kích thước<select id="fontSizeSelect"><option value="18">Nhỏ</option><option value="24" selected>Vừa</option><option value="30">Lớn</option><option value="38">Rất lớn</option></select></label>
+          <label>Màu chữ<input type="color" id="fontColorInput" value="#ffffff"></label>
+          <label>Nền<select id="subtitleBgSelect"><option value="dark" selected>Đen mờ</option><option value="none">Không nền</option><option value="solid">Đen</option></select></label>
+          <label>Vị trí<select id="positionSelect"><option value="bottom" selected>Dưới</option><option value="middle">Giữa</option><option value="top">Trên</option></select></label>
+        </div>
+      </div>
+    </div>
+
+    <div class="editor-panel">
+      <div class="editor-header">
+        <div><div class="panel-title">📝 Biên tập phụ đề</div><div class="editor-count" id="editorCount">0 dòng</div></div>
+        <button class="add-btn" id="addSubtitleBtn">＋ Thêm dòng</button>
+      </div>
+
+      <div class="search-box"><span>🔎</span><input type="text" id="searchInput" placeholder="Tìm kiếm phụ đề..."><button id="clearSearchBtn">×</button></div>
+      <div class="subtitle-list" id="subtitleList">
+        <div class="empty-editor"><div class="empty-icon">📝</div><h3>Chưa có phụ đề</h3><p>Import file SRT/VTT để bắt đầu</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bottom-panel">
+    <div class="bottom-title">⚙️ Công cụ phụ đề</div>
+    <div class="bottom-grid">
+      <button class="bottom-btn" id="shiftBackBtn">◀ Lùi 0.5s</button>
+      <button class="bottom-btn" id="shiftForwardBtn">Tiến 0.5s ▶</button>
+      <button class="bottom-btn" id="sortSubtitleBtn">↕ Sắp xếp thời gian</button>
+      <button class="bottom-btn danger" id="clearSubtitleBtn">🗑️ Xóa tất cả</button>
+    </div>
+  </section>
+
+  <section class="info-section">
+    <div class="info-card"><div class="info-icon">💡</div><div><h3>Cách sử dụng</h3><p>1. Chọn video → 2. Import phụ đề tiếng Anh → 3. Bấm "Dịch toàn bộ" → 4. Kiểm tra/chỉnh sửa → 5. Tải SRT hoặc VTT.</p></div></div>
+    <div class="info-card warning"><div class="info-icon">⚠️</div><div><h3>Lưu ý</h3><p>Phiên bản GitHub Pages này xử lý video và phụ đề ngay trên trình duyệt. Không tải video lên máy chủ. Để tự động nhận diện lời thoại trực tiếp từ video bằng AI cần bổ sung backend Speech-to-Text.</p></div></div>
+  </section>
+</main>
+
+<footer><div>© 2026 Video Translator</div><div>English → Vietnamese</div></footer>
+<input type="file" id="projectInput" accept=".json" hidden>
+<script src="app.js"></script>
+</body>
+</html>
