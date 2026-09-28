@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Video Translator - Whisper + AI + FFmpeg">
+  <title>Video Translator — Whisper + AI + FFmpeg</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><span>VT</span><div><strong>VIDEO TRANSLATOR</strong><small>Whisper • AI • FFmpeg</small></div></div>
+  <div class="status"><i id="dot"></i><span id="serverText">Chưa kết nối backend</span></div>
+</header>
+
+<main class="container">
+  <section class="hero">
+    <p class="eyebrow">ENGLISH → VIETNAMESE</p>
+    <h1>Dịch video tiếng Anh<br><em>thành tiếng Việt</em></h1>
+    <p>Upload video → Whisper nhận diện giọng nói → AI dịch → FFmpeg ghép phụ đề.</p>
+  </section>
+
+  <section class="grid">
+    <div class="card">
+      <h2>1. Cấu hình</h2>
+      <label>Địa chỉ Backend API</label>
+      <div class="row">
+        <input id="apiUrl" placeholder="https://your-backend.example.com" />
+        <button id="testBtn" class="secondary">Kiểm tra</button>
+      </div>
+
+      <label>OpenAI API key <span class="muted">(không bắt buộc ở frontend)</span></label>
+      <input id="clientKey" type="password" placeholder="Chỉ dùng nếu backend bật CLIENT_API_KEY" />
+
+      <div class="info">
+        <b>Khuyến nghị:</b> lưu OpenAI API key trong biến môi trường của backend. Không commit API key vào GitHub.
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>2. Chọn video</h2>
+      <label class="drop">
+        <input id="videoInput" type="file" accept="video/*">
+        <span class="dropIcon">🎬</span>
+        <b id="fileName">Chọn video hoặc kéo thả vào đây</b>
+        <small>MP4, MOV, MKV, WEBM…</small>
+      </label>
+      <video id="preview" controls playsinline hidden></video>
+
+      <div class="settings">
+        <label>Model Whisper</label>
+        <select id="whisperModel">
+          <option value="whisper-1">whisper-1</option>
+        </select>
+
+        <label>Model dịch AI</label>
+        <select id="translationModel">
+          <option value="gpt-5-mini">gpt-5-mini</option>
+          <option value="gpt-5.6">gpt-5.6</option>
+        </select>
+
+        <label>Phong cách phụ đề</label>
+        <select id="subtitleStyle">
+          <option value="bottom">Dưới cùng</option>
+          <option value="middle">Giữa màn hình</option>
+          <option value="top">Trên cùng</option>
+        </select>
+      </div>
+
+      <button id="translateBtn" class="primary" disabled>🚀 DỊCH VIDEO</button>
+    </div>
+  </section>
+
+  <section class="card progressCard">
+    <div class="progressHead">
+      <h2>3. Tiến trình</h2>
+      <strong id="progressText">0%</strong>
+    </div>
+    <div class="bar"><span id="progressBar"></span></div>
+    <p id="stage">Sẵn sàng.</p>
+    <pre id="log"></pre>
+  </section>
+
+  <section class="card resultCard" id="resultCard" hidden>
+    <h2>4. Kết quả</h2>
+    <div class="downloads">
+      <a id="videoDownload" class="download primary" download>🎬 Video đã ghép phụ đề</a>
+      <a id="srtDownload" class="download secondary" download>📄 Tải SRT</a>
+      <a id="vttDownload" class="download secondary" download>📄 Tải VTT</a>
+    </div>
+    <video id="resultVideo" controls playsinline></video>
+    <div class="subPreview">
+      <h3>Phụ đề đã dịch</h3>
+      <div id="subtitleList"></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Kiến trúc</h2>
+    <div class="architecture">
+      <span>🌐 GitHub Pages</span><b>→</b><span>⚡ FastAPI</span><b>→</b><span>🎙 Whisper</span><b>→</b><span>🤖 AI</span><b>→</b><span>🎞 FFmpeg</span>
+    </div>
+    <p class="muted">GitHub Pages chỉ chứa giao diện. Whisper và FFmpeg phải chạy trên server/backend.</p>
+  </section>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
