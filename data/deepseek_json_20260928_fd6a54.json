@@ -1,0 +1,10 @@
+[
+  {"symbol":"VCB","name":"Vietcombank","pe":15.2,"pb":2.8,"roe":22.5,"yield":1.5,"price":92000},
+  {"symbol":"HPG","name":"Hòa Phát","pe":18.5,"pb":1.5,"roe":12.0,"yield":2.0,"price":28000},
+  {"symbol":"FPT","name":"FPT Corp","pe":22.0,"pb":4.5,"roe":25.0,"yield":2.5,"price":135000},
+  {"symbol":"VNM","name":"Vinamilk","pe":16.0,"pb":3.2,"roe":20.0,"yield":5.5,"price":68000},
+  {"symbol":"MBB","name":"MB Bank","pe":6.5,"pb":1.2,"roe":20.5,"yield":4.0,"price":24000},
+  {"symbol":"ACB","name":"ACB","pe":7.0,"pb":1.4,"roe":24.0,"yield":3.5,"price":26000},
+  {"symbol":"PNJ","name":"PNJ","pe":17.0,"pb":3.0,"roe":18.0,"yield":2.0,"price":95000},
+  {"symbol":"REE","name":"REE Corp","pe":14.0,"pb":1.8,"roe":13.0,"yield":3.0,"price":65000}
+]
